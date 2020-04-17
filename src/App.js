@@ -29,7 +29,6 @@ const App = () => {
 
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setPlayer] = useState(PLAYER_1);
-  const [winner, setWinner] = useState('PLAY to find out')
   
 
   // Wave 2
@@ -40,7 +39,14 @@ const App = () => {
     const newSquaresState = [...squares];  //make shallow copy with spread operator
     const row = Math.floor(squareID / 3);  //row# = id / col
     const col = squareID % 3;              //col# = id % col
-    newSquaresState[row][col].value = PLAYER_1;
+    newSquaresState[row][col].value = currentPlayer;
+
+    if(currentPlayer === PLAYER_1) {
+      setPlayer(PLAYER_2);
+    } else {
+      setPlayer(PLAYER_1);
+    }
+    
     setSquares(newSquaresState);
   }
 
@@ -59,7 +65,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... {winner} </h2>
+        <h2>The winner is ...  </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
