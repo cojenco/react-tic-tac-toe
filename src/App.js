@@ -28,11 +28,21 @@ const generateSquares = () => {
 const App = () => {
 
   const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setPlayer] = useState(PLAYER_1);
+  const [winner, setWinner] = useState('PLAY to find out')
+  
 
   // Wave 2
   // You will need to create a method to change the square 
   //   When it is clicked on.
   //   Then pass it into the squares as a callback
+  const handleClickMove = (squareID) => {
+    const newSquaresState = [...squares];  //make shallow copy with spread operator
+    const row = Math.floor(squareID / 3);  //row# = id / col
+    const col = squareID % 3;              //col# = id % col
+    newSquaresState[row][col].value = PLAYER_1;
+    setSquares(newSquaresState);
+  }
 
 
   const checkForWinner = () => {
@@ -42,17 +52,18 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
+
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>The winner is ... -- Fill in for wave 3 </h2>
-        <button>Reset Game</button>
+        <h2>The winner is ... {winner} </h2>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
-        <Board squares={squares} />
+        <Board squares={squares} onClickCallback={handleClickMove}/>
       </main>
     </div>
   );
