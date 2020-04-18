@@ -66,17 +66,18 @@ const App = () => {
         setWinner(squares[0][i].value);  //winning by a column    //here i is column
       }
     }
-    // for(let row = 0; row < 3; row++) {
-    //   if(squares[row][0].value === squares[row][1].value && squares[row][1].value === squares[row][2].value) {
-    //     setWinner(squares[row][0].value);
-    //   }
-    // }
 
-    // for(let col = 0; col < 3; col++) {
-    //   if(squares[0][col].value === squares[1][col].value && squares[row][1].value === squares[row][2].value) {
-    //     setWinner(squares[row][0].value);
-    //   }
-    // }
+    // Handling in case of a Tie
+    let emptySquares = 0;
+    squares.flat().forEach((square) => {
+      if (!square.value) {
+        emptySquares += 1
+      }
+    })
+
+    if(!emptySquares) {
+      setWinner('X and Y. It\'s a TIE!');
+    }
   }
 
   const resetGame = () => {
