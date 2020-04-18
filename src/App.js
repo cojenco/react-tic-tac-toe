@@ -3,26 +3,6 @@ import './App.css';
 
 import Board from './components/Board';
 
-const PLAYER_1 = 'X';
-const PLAYER_2 = 'O';
-
-const generateSquares = () => {
-  const squares = [];
-  let currentId = 0;
-
-  for (let row = 0; row < 3; row += 1) {
-    squares.push([]);
-    for (let col = 0; col < 3; col += 1) {
-      squares[row].push({
-        id: currentId,
-        value: '',
-      });
-      currentId += 1;
-    }
-  }
-
-  return squares;
-}
 
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
@@ -83,6 +63,8 @@ const App = () => {
   const resetGame = () => {
     // Complete in Wave 4
     setSquares(generateSquares());
+    setPlayer(PLAYER_1);
+    setWinner(null);
   }
 
   return (
@@ -97,6 +79,27 @@ const App = () => {
       </main>
     </div>
   );
+}
+
+const PLAYER_1 = 'X';
+const PLAYER_2 = 'O';
+
+const generateSquares = () => {
+  const squares = [];
+  let currentId = 0;
+
+  for (let row = 0; row < 3; row += 1) {
+    squares.push([]);
+    for (let col = 0; col < 3; col += 1) {
+      squares[row].push({
+        id: currentId,
+        value: '',
+      });
+      currentId += 1;
+    }
+  }
+
+  return squares;
 }
 
 export default App;

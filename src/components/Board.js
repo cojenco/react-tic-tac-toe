@@ -7,6 +7,23 @@ import PropTypes from 'prop-types';
 const generateSquareComponents = (squares, onClickCallback) => {
   // Complete this for Wave 1
 
+  // const newArray = squares.map((subarray) {
+  //   for(let j=0; j < subarray.length; j++) {
+  //     console.log(subarray[j]);
+  //     return(
+  //       <Square 
+  //         id={subarray[j].id} 
+  //         value={subarray[j].value}
+  //         key={subarray[j].id}
+  //         onClickCallback={onClickCallback}
+  //       />
+
+  //     );
+  //   }
+  // })
+
+
+
   const arraySquareComponents = []
   for(let row = 0; row < squares.length; row++) {
     for(let col = 0; col < squares[row].length; col++) {
@@ -15,6 +32,7 @@ const generateSquareComponents = (squares, onClickCallback) => {
           id={squares[row][col].id} 
           value={squares[row][col].value}
           key={squares[row][col].id}
+          onClickCallback={onClickCallback}
         />
       );
     }
