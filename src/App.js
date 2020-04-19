@@ -9,13 +9,13 @@ const App = () => {
   const [currentPlayer, setPlayer] = useState(PLAYER_1);
   const [winner, setWinner] = useState(null);
   
-  // Wave 2 
+ 
   const handleClickMove = (squareID) => {
     const row = Math.floor(squareID / 3);  //row# = id / total#columns
     const col = squareID % 3;              //col# = id % total#colimns
 
-    if (!winner && squares[row][col].value === '') {
-      const newSquaresState = [...squares];  //make shallow copy with spread operator
+    if (!winner && !squares[row][col].value) {   //if winner === null && sqaure_value === ''
+      const newSquaresState = [...squares];      //make shallow copy with spread operator
       newSquaresState[row][col].value = currentPlayer;
 
       if (currentPlayer === PLAYER_1) {
@@ -23,45 +23,45 @@ const App = () => {
       } else {
         setPlayer(PLAYER_1);
       }
-      setSquares(newSquaresState);
-    }
 
-    checkForWinner(squares);
+      setSquares(newSquaresState);
+      checkForWinner(squares);
+    }
   }
 
-
+  
   const checkForWinner = (squares) => {
-    // Complete in Wave 3
-    if (squares[1][1].value !== '' && squares[0][0].value === squares[1][1].value && squares[1][1].value === squares[2][2].value) {
-      setWinner(squares[1][1].value);  //winning by diagonal right
-    } else if (squares[1][1].value !== '' && squares[0][2].value === squares[1][1].value && squares[1][1].value === squares[2][0].value) {
-      setWinner(squares[1][1].value);  //winning by diagonal left
+    if (squares[1][1].value && squares[0][0].value === squares[1][1].value && squares[1][1].value === squares[2][2].value) {
+      return setWinner(squares[1][1].value);  //winning by diagonal right
+    } else if (squares[1][1].value && squares[0][2].value === squares[1][1].value && squares[1][1].value === squares[2][0].value) {
+      return setWinner(squares[1][1].value);  //winning by diagonal left
     } 
 
+    let emptySquares = 0;                       //to use for handling Ties
+
     for(let i = 0; i < 3; i++) {
-      if(squares[i][0].value !== '' && squares[i][0].value === squares[i][1].value && squares[i][1].value === squares[i][2].value) {
-        setWinner(squares[i][0].value);  //winning by a row       //here i is row
+      if(squares[i][0].value && squares[i][0].value === squares[i][1].value && squares[i][1].value === squares[i][2].value) {
+        return setWinner(squares[i][0].value);  //winning by a row       //here i is row
       }
-      if(squares[0][i].value !== '' && squares[0][i].value === squares[1][i].value && squares[1][i].value === squares[2][i].value) {
-        setWinner(squares[0][i].value);  //winning by a column    //here i is column
+      if(squares[0][i].value && squares[0][i].value === squares[1][i].value && squares[1][i].value === squares[2][i].value) {
+        return setWinner(squares[0][i].value);  //winning by a column    //here i is column
+      }
+
+      // Handling in case of Ties // Using i as row, j as column
+      for(let j = 0; j < 3; j++) {
+        if (!squares[i][j].value) {
+          emptySquares += 1
+        }
       }
     }
-
-    // Handling in case of a Tie
-    let emptySquares = 0;
-    squares.flat().forEach((square) => {
-      if (!square.value) {
-        emptySquares += 1
-      }
-    })
-
-    if(!emptySquares) {
-      setWinner('X and Y. It\'s a TIE!');
+    // Handling in case of Ties
+    if(!emptySquares) {                         
+      return setWinner('X and Y. It\'s a TIE!');
     }
   }
 
+
   const resetGame = () => {
-    // Complete in Wave 4
     setSquares(generateSquares());
     setPlayer(PLAYER_1);
     setWinner(null);
