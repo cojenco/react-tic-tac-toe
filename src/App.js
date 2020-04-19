@@ -54,6 +54,7 @@ const App = () => {
         }
       }
     }
+    
     // Handling in case of Ties
     if(!emptySquares) {                         
       return setWinner('X and Y. It\'s a TIE!');
