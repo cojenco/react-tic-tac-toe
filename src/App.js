@@ -3,7 +3,7 @@ import './App.css';
 
 import Board from './components/Board';
 
-
+// src/App.js
 const App = () => {
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setPlayer] = useState(PLAYER_1);
